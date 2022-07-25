@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<decorators defaultdir = "/decorators">
+    <!--    những url được khai báo trong excludes không được apply giao diện nào cả-->
+    <excludes>
+        <pattern>/api*</pattern>
+    </excludes>
+    <decorator name="admin" page = "admin.jsp">
+        <pattern>/quan-tri*</pattern>
+<!--        tất cả những url bắt đầu bằng /quan-tri thì apply giao diện admin-->
+    </decorator>
+    <decorator name="web" page = "web.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+
+    <decorator name="login" page = "login.jsp">
+        <pattern>/dang-nhap</pattern>
+    </decorator>
+
+
+</decorators>
+        <!--file này dùng để đánh dấu biết những trường hợp ntn -->
+        <!--thì apply file admin.jsp, những trường hợp nào apply web.jsp-->
+        <!--và trường hợp có url là api thì k apply giao diện nào cả-->

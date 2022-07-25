@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <display-name>spring-mvc</display-name>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/context/applicationContext.xml
+
+        </param-value>
+    </context-param>
+
+    <!-- Spring MVC -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/context/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- Declare Spring Security Filter -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <!-- sitemesh filter -->
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--         xmlns="http://java.sun.com/xml/ns/javaee"-->
+<!--         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"-->
+<!--         version="3.0">-->
+<!--    <display-name>spring-mvc</display-name>-->
+
+<!--&lt;!&ndash;    bắt buộc phải có ví khi request một URL thì hệ thống cần phải được lắng nghe&ndash;&gt;-->
+<!--    <listener>-->
+<!--        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+<!--    </listener>-->
+
+<!--    &lt;!&ndash;    dùng để load file applicationContext&ndash;&gt;-->
+<!--    <context-param>-->
+<!--        <param-name>contextConfigLocation</param-name>-->
+<!--        <param-value>-->
+<!--            /WEB-INF/context/applicationContext.xml-->
+<!--        </param-value>-->
+<!--    </context-param>-->
+
+<!--    &lt;!&ndash; Spring MVC, và dùng để load DispatcherServlet &ndash;&gt;-->
+<!--    <servlet>-->
+<!--        <servlet-name>dispatcher</servlet-name>-->
+<!--        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+<!--        <init-param>-->
+<!--            <param-name>contextConfigLocation</param-name>-->
+<!--&lt;!&ndash;        load các cái file được khai báo trong context&ndash;&gt;-->
+<!--            <param-value>-->
+<!--                /WEB-INF/context/dispatcher-servlet.xml-->
+<!--            </param-value>-->
+<!--        </init-param>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>dispatcher</servlet-name>-->
+<!--        <url-pattern>/</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+
+<!--    &lt;!&ndash; Declare Spring Security Filter &ndash;&gt;-->
+<!--&lt;!&ndash;    <filter>&ndash;&gt;-->
+<!--&lt;!&ndash;        <filter-name>springSecurityFilterChain</filter-name>&ndash;&gt;-->
+<!--&lt;!&ndash;        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>&ndash;&gt;-->
+<!--&lt;!&ndash;    </filter>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <filter-mapping>&ndash;&gt;-->
+<!--&lt;!&ndash;        <filter-name>springSecurityFilterChain</filter-name>&ndash;&gt;-->
+<!--&lt;!&ndash;        <url-pattern>/*</url-pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;        <dispatcher>REQUEST</dispatcher>&ndash;&gt;-->
+<!--&lt;!&ndash;        <dispatcher>ERROR</dispatcher>&ndash;&gt;-->
+<!--&lt;!&ndash;    </filter-mapping>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    sitemesh filter&ndash;&gt;-->
+<!--    <filter>-->
+<!--        <filter-name>sitemesh</filter-name>-->
+<!--        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>sitemesh</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--        <dispatcher>REQUEST</dispatcher>-->
+<!--        <dispatcher>FORWARD</dispatcher>-->
+<!--    </filter-mapping>-->
+
+<!--&lt;!&ndash;    Dùng để ngắt những đoạn URL thừa, ví dụ /trang-chuAAJFCNAKFMAKi/ trở thanh/trang-chu/&ndash;&gt;-->
+<!--    <session-config>-->
+<!--        <tracking-mode>COOKIE</tracking-mode>-->
+<!--    </session-config>-->
+
+
+<!--&lt;!&ndash;    khi hệ thống start, nó sẽ chạy đến đây để biết start file nào lên&ndash;&gt;-->
+<!--    <welcome-file-list>-->
+<!--        <welcome-file>index.jsp</welcome-file>-->
+<!--    </welcome-file-list>-->
+
+<!--</web-app>-->
